@@ -1,20 +1,27 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
-const User = require("./../models/User");
+const { check } = require("express-validator");
+
+const AuthController = require("../../controllers/authController");
 
 //@route GET api/auth
 //@desc Test route
 //@access Public
 
-router.get("/", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-    res.json(user);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server error");
-  }
-});
+router.get("/", auth, AuthController.getAuth);
+
+//@route POST api/auth
+//@desc Authenticate user
+//@access Public
+
+router.post(
+  "/",
+  [
+    check("email", "Please include a valid email").isEmail(),
+    check("password", "Password is required").exists(),
+  ],
+  AuthController.postAuth
+);
 
 module.exports = router;
