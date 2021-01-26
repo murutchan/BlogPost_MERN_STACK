@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://askardb:cocomelon312@blogposts.jgl29.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
+}
