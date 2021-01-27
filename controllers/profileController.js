@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const profile = require("../models/profile");
+
 const Profile = require("../models/profile");
 const User = require("../models/User");
 
@@ -129,5 +129,133 @@ exports.getUserProfile = async (req, res) => {
       return res.status(400).json({ msg: "Profile not found" });
     }
     res.status(500).send("server Error");
+  }
+};
+
+//delete PROFILE AND USER
+//@desc delete profile user and posts
+//@access private
+exports.deleteProfileAndUser = async (req, res) => {
+  try {
+    //TODO: remove posts
+
+    //remove profile
+    await Profile.findOneAndRemove({ user: req.user.id });
+    //remove user
+    await User.findOneAndRemove({ _id: req.user.id });
+    res.json({ msg: "User deleted" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+//@route PUT api/profile/experience
+//@desc Add profile experience
+//@access Private
+
+exports.addExperience = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
+  const { title, company, location, from, to, current, description } = req.body;
+  const newExp = { title, company, location, from, to, current, description };
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    profile.experience.unshift(newExp);
+    await profile.save();
+    res.json({ profile });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+//@route delete api/profile/experience/:exp_id
+//@desc delete profile experience
+//@access Private
+
+exports.deleteExperience = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    //get remove index
+    const removeIndex = profile.experience
+      .map((item) => item.id)
+      .indexOf(req.params.ed_id);
+    profile.experience.splice(removeIndex, 1);
+    await profile.save();
+    res.status(200).json({
+      status: "Success",
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+//@route PUT api/profile/education
+//@desc Add profile education
+//@access Private
+
+exports.addEducation = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  }
+  const {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description,
+  } = req.body;
+  const newEd = {
+    school,
+    degree,
+    fieldofstudy,
+    from,
+    to,
+    current,
+    description,
+  };
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    profile.education.unshift(newEd);
+    await profile.save();
+    res.json({ profile });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+//@route delete api/profile/education/:exp_id
+//@desc delete profile education
+//@access Private
+
+exports.deleteEducation = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    //get remove index
+    const removeIndex = profile.education
+      .map((item) => item.id)
+      .indexOf(req.params.ed_id);
+    profile.education.splice(removeIndex, 1);
+    await profile.save();
+    res.status(200).json({
+      status: "Success",
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 };
