@@ -1,11 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
 //init MiddleWare
 app.use(express.json({ extended: false }));
 app.use(morgan("dev"));
+app.use(cors());
 app.use;
 
 app.get("/", (req, res) => res.send("API running"));
