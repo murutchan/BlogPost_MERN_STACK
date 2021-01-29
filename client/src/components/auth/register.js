@@ -84,7 +84,7 @@ const Register = ({ setAlert }) => {
     </Fragment>
   );
 };
-
+//used for development only
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
 };
