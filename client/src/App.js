@@ -13,6 +13,7 @@ import Alert from "./components/layout/alert";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/privateRoute";
 import CreateProfile from "./components/profile-form/createProfile";
+import EditProfile from "./components/profile-form/EditProfile";
 import "./App.css";
 
 if (localStorage.token) {
@@ -39,6 +40,11 @@ const App = () => {
                 exact
                 path="/create-profile"
                 component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
               />
             </Switch>
           </section>
