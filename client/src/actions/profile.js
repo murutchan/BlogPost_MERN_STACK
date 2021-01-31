@@ -57,7 +57,7 @@ export const createProfile = (formData, history, edit = false) => async (
     dispatch({
       type: PROFILE_ERROR,
       payload: {
-        msg: err.response.statusText,
+        msg: err.response,
         status: err.response.status,
       },
     });

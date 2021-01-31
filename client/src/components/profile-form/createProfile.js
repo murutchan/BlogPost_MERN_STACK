@@ -2,9 +2,8 @@ import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { createProfile } from "../../actions/profile";
 import { Link, withRouter } from "react-router-dom";
-
 import PropTypes from "prop-types";
-import { createStore } from "redux";
+
 const CreateProfile = ({ createProfile, history }) => {
   const [formData, setFormData] = useState({
     company: "",
