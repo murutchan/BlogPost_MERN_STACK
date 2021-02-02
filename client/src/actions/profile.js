@@ -26,7 +26,7 @@ export const getCurrentProfile = () => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -50,7 +50,6 @@ export const getProfiles = () => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
       },
     });
   }
@@ -59,9 +58,9 @@ export const getProfiles = () => async (dispatch) => {
 //GET PROFILE BY ID
 
 export const getProfile = (userId) => async (dispatch) => {
-  dispatch({
-    type: CLEAR_PROFILE,
-  });
+  // dispatch({
+  //   type: CLEAR_PROFILE,
+  // });
   try {
     const res = await axios.get(
       `http://localhost:5000/api/profile/user/${userId}`
@@ -76,7 +75,7 @@ export const getProfile = (userId) => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -102,7 +101,7 @@ export const getGithubRepo = (username) => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -143,7 +142,7 @@ export const createProfile = (formData, history, edit = false) => async (
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -180,7 +179,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -217,7 +216,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -242,7 +241,7 @@ export const deleteExperience = (id) => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -267,7 +266,7 @@ export const deleteEducation = (id) => async (dispatch) => {
       type: PROFILE_ERROR,
       payload: {
         msg: err.response,
-        status: err.response.status,
+        status: err.response,
       },
     });
   }
@@ -318,9 +317,15 @@ export const deleteAccount = () => async (dispatch) => {
         type: PROFILE_ERROR,
         payload: {
           msg: err.response,
-          status: err.response.status,
+          status: err.response,
         },
       });
     }
   }
+};
+
+//get profile by id
+
+export const getProfileById = () => {
+  return { type: GET_PROFILE };
 };
