@@ -4,6 +4,7 @@ const config = require("config");
 
 const Profile = require("../models/profile");
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 exports.getProfile = async (req, res) => {
   try {
@@ -140,7 +141,8 @@ exports.getUserProfile = async (req, res) => {
 //@access private
 exports.deleteProfileAndUser = async (req, res) => {
   try {
-    //TODO: remove posts
+    // remove user posts
+    await Post.deleteMany({ user: req.user.id });
 
     //remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
@@ -188,8 +190,9 @@ exports.deleteExperience = async (req, res) => {
     //get remove index
     const removeIndex = profile.experience
       .map((item) => item.id)
-      .indexOf(req.params.ed_id);
+      .indexOf(req.params.exp_id);
     profile.experience.splice(removeIndex, 1);
+
     await profile.save();
     res.status(200).json({
       status: "Success",
