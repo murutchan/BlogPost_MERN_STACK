@@ -1,7 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db");
 
-const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 
@@ -11,9 +10,8 @@ connectDB();
 
 //init MiddleWare
 app.use(express.json({ extended: false }));
-app.use(morgan("dev"));
+
 app.use(cors());
-app.use;
 
 //Define routes
 app.use("/api/users", require("./routes/api/users"));
