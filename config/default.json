@@ -1,6 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://askardb:cocomelon312@blogposts.jgl29.mongodb.net/<dbname>?retryWrites=true&w=majority",
-  "jwtSecret": "mysecrettoken",
-  "githubClientId": "a36e249219d9dd8e7285",
-  "githubSecret": "68d28f8422593e30646f1d7ba1928595ce62e9d4"
-}
