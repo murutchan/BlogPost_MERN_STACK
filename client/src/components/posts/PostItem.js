@@ -15,10 +15,10 @@ const PostItem = ({
   return (
     <div class="post bg-white p-1 my-1">
       <div>
-        <a href="profile.html">
+        <Link to={`/profile/${user}`}>
           <img class="round-img" src={avatar} alt="" />
           <h4>{name}</h4>
-        </a>
+        </Link>
       </div>
       <div>
         <p class="my-1">{text}</p>
@@ -31,7 +31,9 @@ const PostItem = ({
           class="btn btn-light"
         >
           <i class="fas fa-thumbs-up"></i>{" "}
-          {likes.length > 0 && <span>{likes.length}</span>}
+          {likes !== undefined && likes.length > 0 && (
+            <span>{likes.length}</span>
+          )}
         </button>
         <button
           onClick={(e) => removeLike(_id)}
@@ -42,7 +44,7 @@ const PostItem = ({
         </button>
         <Link to={`/post/${_id}`} class="btn btn-primary">
           Discussion
-          {comments.length > 0 && (
+          {comments !== undefined && comments.length > 0 && (
             <span class="comment-count">{comments.length}</span>
           )}
         </Link>
